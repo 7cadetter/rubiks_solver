@@ -30,36 +30,38 @@ class Cube(object):
                 self.top, self.back, self.bottom, self.front
             )
             self.top.flip()
-            self.left.rotate('clock')
+            self.back.flip()
+            self.left.rotate()
             self.right.rotate('anti')
         elif direction == 'backward':
             self.front, self.top, self.back, self.bottom = (
                 self.bottom, self.front, self.top, self.back
             )
             self.back.flip()
-            self.right.rotate('clock')
+            self.bottom.flip()
+            self.right.rotate()
             self.left.rotate('anti')
         elif direction == 'left':
             self.front, self.left, self.back, self.right = (
                 self.right, self.front, self.left, self.back
             )
-            self.top.rotate('clock')
+            self.top.rotate()
             self.bottom.rotate('anti')
         elif direction == 'right':
             self.front, self.left, self.back, self.right = (
                 self.left, self.back, self.right, self.front
             )
-            self.bottom.rotate('clock')
+            self.bottom.rotate()
             self.top.rotate('anti')
         elif direction == 'clockwise':
             self.top, self.right, self.bottom, self.left = (
                 self.left, self.top, self.right, self.bottom
             )
-            self.top.rotate('clock')
-            self.bottom.rotate('clock')
-            self.left.rotate('clock')
-            self.right.rotate('clock')
-            self.front.rotate('clock')
+            self.top.rotate()
+            self.bottom.rotate()
+            self.left.rotate()
+            self.right.rotate()
+            self.front.rotate()
             self.back.rotate('anti')
         elif direction == 'counter':
             self.top, self.right, self.bottom, self.left = (
@@ -69,8 +71,28 @@ class Cube(object):
             self.bottom.rotate('anti')
             self.left.rotate('anti')
             self.right.rotate('anti')
-            self.back.rotate('anti')
+            self.back.rotate()
             self.front.rotate('anti')
+
+    def twist (self, side, direction='normal'):
+        if direction == 'normal':
+            if side == 'face':
+                self.front.rotate()
+                temp = self.top.panels[5], self.top.panels[6], self.top.panels[7]
+                self.top.panels[5], self.top.panels[6], self.top.panels[7] = (
+                    self.left.panels[7], self.left.panels[4], self.left.panels[2])
+                self.left.panels[7], self.left.panels[4], self.left.panels[2] = (
+                    self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0]
+                )
+                self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0] = (
+                    self.right.panels[0], self.right.panels[3], self.right.panels[5]
+                )
+                self.right.panels[0], self.right.panels[3], self.right.panels[5] = temp
+
+
+        # elif direction == 'reverse':
+
+
 
 
 
@@ -78,14 +100,6 @@ class Face(object):
     def __init__(self, colour, panels):
         self.colour = colour
         self.panels = panels
-        self.tl = panels[0]
-        self.tm = panels[1]
-        self.tr = panels[2]
-        self.ml = panels[3]
-        self.mr = panels[4]
-        self.bl = panels[5]
-        self.bm = panels[6]
-        self.br = panels[7]
 
         self.neighbours = {
             'top': None,
@@ -107,7 +121,7 @@ class Face(object):
         self.neighbours['right'] = right
         self.neighbours['opp'] = opp
 
-    def rotate(self, direction):
+    def rotate(self, direction='clock'):
         orient_corn = [0, 2, 7, 5]
         orient_edge = [1, 4, 6, 3]
 
@@ -120,7 +134,7 @@ class Face(object):
 
             if direction == 'clock':
                 index = (group_index - 1) % 4
-            else:
+            elif direction == 'anti':
                 index = (group_index + 1) % 4
 
             print(f'{panel_copy[group[index]]} into panel {i}, replaces {self.panels[i]}')
@@ -164,7 +178,7 @@ red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_f
 green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
 white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
 
-cube.turn('clockwise')
+cube.twist('face')
 print(cube)
 
 
