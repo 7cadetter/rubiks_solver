@@ -15,16 +15,6 @@ class Cube(object):
                 + str(self.back) + str(self.top))
 
     def turn(self, direction):
-        orient_corn = [0, 2, 7, 5]
-        orient_edge = [1, 4, 6, 3]
-
-        left_copy = copy.deepcopy(self.left.panels)
-        right_copy = copy.deepcopy(self.right.panels)
-        top_copy = copy.deepcopy(self.top.panels)
-        bottom_copy = copy.deepcopy(self.bottom.panels)
-        front_copy = copy.deepcopy(self.front.panels)
-        back_copy = copy.deepcopy(self.back.panels)
-
         if direction == 'forward':
             self.front, self.top, self.back, self.bottom = (
                 self.top, self.back, self.bottom, self.front
@@ -78,21 +68,26 @@ class Cube(object):
         if direction == 'normal':
             if side == 'face':
                 self.front.rotate()
-                temp = self.top.panels[5], self.top.panels[6], self.top.panels[7]
-                self.top.panels[5], self.top.panels[6], self.top.panels[7] = (
-                    self.left.panels[7], self.left.panels[4], self.left.panels[2])
-                self.left.panels[7], self.left.panels[4], self.left.panels[2] = (
-                    self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0]
-                )
-                self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0] = (
-                    self.right.panels[0], self.right.panels[3], self.right.panels[5]
-                )
-                self.right.panels[0], self.right.panels[3], self.right.panels[5] = temp
+                self.shift_lines(self.top.b_line, self.right.l_line, self.bottom.u_line, self.left.r_line)
+                self.top.panels[7], self.top.panels[6], self.top.panels[5] = self.top.b_line
+                self.right.panels[0], self.right.panels[3], self.right.panels[5] = self.right.l_line
+                self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0] = self.bottom.u_line
+                self.left.panels[2], self.left.panels[4], self.left.panels[7] = self.left.r_line
+        elif direction == 'reverse':
+            if side == 'face':
+                self.front.rotate('anti')
+                self.shift_lines(self.top.b_line, self.left.r_line, self.bottom.u_line, self.right.l_line)
+                self.top.panels[5], self.top.panels[6], self.top.panels[7] = self.top.b_line
+                self.left.panels[7], self.left.panels[4], self.left.panels[2] = self.left.r_line
+                self.bottom.panels[0], self.bottom.panels[1], self.bottom.panels[2] = self.bottom.u_line
+                self.right.panels[5], self.right.panels[3], self.right.panels[0] = self.right.l_line
 
-
-        # elif direction == 'reverse':
-
-
+    def shift_lines(self, line1, line2, line3, line4):
+        temp = line1[:]
+        line1[:] = line4
+        line4[:] = line3
+        line3[:] = line2
+        line2[:] = temp
 
 
 
@@ -100,6 +95,10 @@ class Face(object):
     def __init__(self, colour, panels):
         self.colour = colour
         self.panels = panels
+        self.l_line = [panels[0], panels[3], panels[5]]
+        self.r_line = [panels[2], panels[4], panels[7]]
+        self.u_line = [panels[0], panels[1], panels[2]]
+        self.b_line = [panels[5], panels[6], panels[7]]
 
         self.neighbours = {
             'top': None,
@@ -136,6 +135,8 @@ class Face(object):
                 index = (group_index - 1) % 4
             elif direction == 'anti':
                 index = (group_index + 1) % 4
+            else:
+                exit()
 
             print(f'{panel_copy[group[index]]} into panel {i}, replaces {self.panels[i]}')
             self.panels[i] = panel_copy[group[index]]
@@ -144,6 +145,8 @@ class Face(object):
     def flip(self):
         self.rotate('clockwise')
         self.rotate('clockwise')
+
+
 
 
 colours = ['white', 'blue', 'orange', 'red', 'green', 'yellow']
@@ -178,7 +181,7 @@ red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_f
 green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
 white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
 
-cube.twist('face')
+cube.twist('face', 'reverse')
 print(cube)
 
 
