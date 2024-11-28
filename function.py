@@ -65,22 +65,71 @@ class Cube(object):
             self.front.rotate('anti')
 
     def twist (self, side, direction='normal'):
-        if direction == 'normal':
-            if side == 'face':
+        if side == 'face':
+            if direction == 'normal':
                 self.front.rotate()
                 self.shift_lines(self.top.b_line, self.right.l_line, self.bottom.u_line, self.left.r_line)
-                self.top.panels[7], self.top.panels[6], self.top.panels[5] = self.top.b_line
-                self.right.panels[0], self.right.panels[3], self.right.panels[5] = self.right.l_line
-                self.bottom.panels[2], self.bottom.panels[1], self.bottom.panels[0] = self.bottom.u_line
-                self.left.panels[2], self.left.panels[4], self.left.panels[7] = self.left.r_line
-        elif direction == 'reverse':
-            if side == 'face':
+                self.top.b_line.reverse()
+                self.bottom.u_line.reverse()
+            elif direction == 'reverse':
                 self.front.rotate('anti')
                 self.shift_lines(self.top.b_line, self.left.r_line, self.bottom.u_line, self.right.l_line)
-                self.top.panels[5], self.top.panels[6], self.top.panels[7] = self.top.b_line
-                self.left.panels[7], self.left.panels[4], self.left.panels[2] = self.left.r_line
-                self.bottom.panels[0], self.bottom.panels[1], self.bottom.panels[2] = self.bottom.u_line
-                self.right.panels[5], self.right.panels[3], self.right.panels[0] = self.right.l_line
+                self.right.l_line.reverse()
+                self.left.r_line.reverse()
+            self.top.panels[5], self.top.panels[6], self.top.panels[7] = self.top.b_line
+            self.right.panels[0], self.right.panels[3], self.right.panels[5] = self.right.l_line
+            self.bottom.panels[0], self.bottom.panels[1], self.bottom.panels[2] = self.bottom.u_line
+            self.left.panels[2], self.left.panels[4], self.left.panels[7] = self.left.r_line
+        elif side == 'left':
+            if direction == 'normal':
+                self.left.rotate()
+                self.shift_lines(self.front.l_line, self.bottom.l_line, self.back.r_line, self.top.l_line)
+                self.top.l_line.reverse()
+            elif direction == 'reverse':
+                self.left.rotate('anti')
+                self.shift_lines(self.front.l_line, self.top.l_line, self.back.r_line, self.bottom.l_line)
+                self.bottom.l_line.reverse()
+            self.back.r_line.reverse()
+            self.front.panels[0], self.front.panels[3], self.front.panels[5] = self.front.l_line
+            self.top.panels[0], self.top.panels[3], self.top.panels[5] = self.top.l_line
+            self.back.panels[2], self.back.panels[4], self.back.panels[7] = self.back.r_line
+            self.bottom.panels[0], self.bottom.panels[3], self.bottom.panels[5] = self.bottom.l_line
+        elif side == 'right':
+            if direction == 'normal':
+                self.right.rotate()
+                self.shift_lines(self.front.r_line, self.top.r_line, self.back.l_line, self.bottom.r_line)
+                self.bottom.r_line.reverse()
+            elif direction == 'reverse':
+                self.right.rotate('anti')
+                self.shift_lines(self.front.r_line, self.bottom.r_line, self.back.l_line, self.top.r_line)
+                self.top.r_line.reverse()
+            self.back.l_line.reverse()
+            self.front.panels[2], self.front.panels[4], self.front.panels[7] = self.front.r_line
+            self.top.panels[2], self.top.panels[4], self.top.panels[7] = self.top.r_line
+            self.back.panels[0], self.back.panels[3], self.back.panels[5] = self.back.l_line
+            self.bottom.panels[2], self.bottom.panels[4], self.bottom.panels[7] = self.bottom.r_line
+        elif side == 'top':
+            if direction == 'normal':
+                self.top.rotate()
+                self.shift_lines(self.front.u_line, self.left.u_line, self.back.u_line, self.right.u_line)
+            elif direction == 'reverse':
+                self.top.rotate('anti')
+                self.shift_lines(self.front.u_line, self.right.u_line, self.back.u_line, self.left.u_line)
+            self.front.panels[0], self.front.panels[1], self.front.panels[2] = self.front.u_line
+            self.left.panels[0], self.left.panels[1], self.left.panels[2] = self.left.u_line
+            self.back.panels[0], self.back.panels[1], self.back.panels[2] = self.back.u_line
+            self.right.panels[0], self.right.panels[1], self.right.panels[2] = self.right.u_line
+        elif side == 'bottom':
+            if direction == 'normal':
+                self.bottom.rotate()
+                self.shift_lines(self.front.b_line, self.right.b_line, self.back.b_line, self.left.b_line)
+            elif direction == 'reverse':
+                self.bottom.rotate('anti')
+                self.shift_lines(self.front.b_line, self.left.b_line, self.back.b_line, self.right.b_line)
+            self.front.panels[5], self.front.panels[6], self.front.panels[7] = self.front.b_line
+            self.left.panels[5], self.left.panels[6], self.left.panels[7] = self.left.b_line
+            self.back.panels[5], self.back.panels[6], self.back.panels[7] = self.back.b_line
+            self.right.panels[5], self.right.panels[6], self.right.panels[7] = self.right.b_line
 
     def shift_lines(self, line1, line2, line3, line4):
         temp = line1[:]
@@ -88,8 +137,6 @@ class Cube(object):
         line4[:] = line3
         line3[:] = line2
         line2[:] = temp
-
-
 
 class Face(object):
     def __init__(self, colour, panels):
@@ -138,9 +185,7 @@ class Face(object):
             else:
                 exit()
 
-            print(f'{panel_copy[group[index]]} into panel {i}, replaces {self.panels[i]}')
             self.panels[i] = panel_copy[group[index]]
-        print('\n')
 
     def flip(self):
         self.rotate('clockwise')
@@ -181,7 +226,6 @@ red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_f
 green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
 white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
 
-cube.twist('face', 'reverse')
 print(cube)
 
 
