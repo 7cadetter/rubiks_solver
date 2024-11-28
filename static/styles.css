@@ -1,0 +1,78 @@
+#title {
+    text-align: center;
+}
+
+#face {
+    position: relative;
+    margin: auto;
+    width: 400px;
+    height: 400px;
+}
+
+.panel {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: blue;
+}
+
+.left, .mid-d, .right {
+    border-left: 5px black solid;
+}
+
+.top, .mid-a, .bottom {
+    border-top: 5px black solid;
+}
+
+.bottom {
+    border-bottom: 5px black solid;
+}
+
+.right {
+    border-right: 5px black solid;
+}
+
+#topleft {
+    left: 0px;
+    top: 0px;
+}
+
+#topmid {
+    left: 130px;
+    top: 0;
+}
+
+#topright {
+    left: 260px;
+    top: 0;
+}
+
+#midleft {
+    left: 0px;
+    top: 130px;
+}
+
+#middle {
+    left: 130px;
+    top: 130px;
+}
+
+#midright {
+    left: 260px;
+    top: 130px;
+}
+
+#bottomleft {
+    left: 0px;
+    top: 260px;
+}
+
+#bottommid {
+    left: 130px;
+    top: 260px;
+}
+
+#bottomright {
+    left: 260px;
+    top: 260px;
+}
