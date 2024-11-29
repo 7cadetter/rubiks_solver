@@ -32,6 +32,7 @@ def index():
     faces.append(yellow_face)
 
     cube = Cube(faces)
+    cube.turn('forward')
     return render_template('index.j2', cube=cube)
 
 if __name__ == '__main__':

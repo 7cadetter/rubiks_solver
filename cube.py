@@ -189,8 +189,8 @@ class Face(object):
             self.panels[i] = panel_copy[group[index]]
 
     def flip(self):
-        self.rotate('clockwise')
-        self.rotate('clockwise')
+        self.rotate()
+        self.rotate()
 
 
 
