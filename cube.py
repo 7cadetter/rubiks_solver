@@ -63,6 +63,7 @@ class Cube(object):
             self.right.rotate('anti')
             self.back.rotate()
             self.front.rotate('anti')
+        print(f"Turning {direction}")
 
     def twist (self, side, direction='normal'):
         if side == 'face':
@@ -156,16 +157,16 @@ class Face(object):
         }
 
     def __str__(self):
-        return (f'{self.panels[0]}  {self.panels[1]}  {self.panels[2]}\n'
-                f'{self.panels[3]}  {self.colour[0]}  {self.panels[4]}\n'
-                f'{self.panels[5]}  {self.panels[6]}  {self.panels[7]}\n\n')
+        return (f'{self.panels[0][:1]}  {self.panels[1][:1]}  {self.panels[2][:1]}\n'
+                f'{self.panels[3][:1]}  {self.colour[0][:1]}  {self.panels[4][:1]}\n'
+                f'{self.panels[5][:1]}  {self.panels[6][:1]}  {self.panels[7][:1]}\n\n')
 
-    def set_neighbours(self, top, bottom, left, right, opp):
-        self.neighbours['top'] = top
-        self.neighbours['bottom'] = bottom
-        self.neighbours['left'] = left
-        self.neighbours['right'] = right
-        self.neighbours['opp'] = opp
+    # def set_neighbours(self, top, bottom, left, right, opp):
+    #     self.neighbours['top'] = top
+    #     self.neighbours['bottom'] = bottom
+    #     self.neighbours['left'] = left
+    #     self.neighbours['right'] = right
+    #     self.neighbours['opp'] = opp
 
     def rotate(self, direction='clock'):
         orient_corn = [0, 2, 7, 5]
@@ -196,39 +197,37 @@ class Face(object):
 
 colours = ['white', 'blue', 'orange', 'red', 'green', 'yellow']
 valid_inputs = ['w', 'b', 'r', 'o', 'g', 'y']
-faces = []
+# faces = []
 
-panels = ['w1', 'w2', 'w3', 'w4', 'w6', 'w7', 'w8', 'w9']
-white_face = Face('white', panels)
-faces.append(white_face)
-panels = ['b1', 'b2', 'b3', 'b4', 'b6', 'b7', 'b8', 'b9']
-blue_face = Face('blue', panels)
-faces.append(blue_face)
-panels = ['o1', 'o2', 'o3', 'o4', 'o6', 'o7', 'o8', 'o9']
-orange_face = Face('orange', panels)
-faces.append(orange_face)
-panels = ['r1', 'r2','r3', 'r4', 'r6', 'r7', 'r8', 'r9']
-red_face = Face('red', panels)
-faces.append(red_face)
-panels = ['g1', 'g2', 'g3', 'g4', 'g6', 'g7', 'g8', 'g9']
-green_face = Face('green', panels)
-faces.append(green_face)
-panels = ['y1', 'y2', 'y3', 'y4', 'y6', 'y7', 'y8', 'y9']
-yellow_face = Face('yellow', panels)
-faces.append(yellow_face)
+# panels = ['w1', 'w2', 'w3', 'w4', 'w6', 'w7', 'w8', 'w9']
+# white_face = Face('white', panels)
+# faces.append(white_face)
+# panels = ['b1', 'b2', 'b3', 'b4', 'b6', 'b7', 'b8', 'b9']
+# blue_face = Face('blue', panels)
+# faces.append(blue_face)
+# panels = ['o1', 'o2', 'o3', 'o4', 'o6', 'o7', 'o8', 'o9']
+# orange_face = Face('orange', panels)
+# faces.append(orange_face)
+# panels = ['r1', 'r2','r3', 'r4', 'r6', 'r7', 'r8', 'r9']
+# red_face = Face('red', panels)
+# faces.append(red_face)
+# panels = ['g1', 'g2', 'g3', 'g4', 'g6', 'g7', 'g8', 'g9']
+# green_face = Face('green', panels)
+# faces.append(green_face)
+# panels = ['y1', 'y2', 'y3', 'y4', 'y6', 'y7', 'y8', 'y9']
+# yellow_face = Face('yellow', panels)
+# faces.append(yellow_face)
 
-cube = Cube(faces)
+# cube = Cube(faces)
 
-white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
-blue_face.set_neighbours(yellow_face, white_face, orange_face, red_face, green_face)
-orange_face.set_neighbours(yellow_face, white_face, green_face, blue_face, red_face)
-red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_face)
-green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
-white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
+# white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
+# blue_face.set_neighbours(yellow_face, white_face, orange_face, red_face, green_face)
+# orange_face.set_neighbours(yellow_face, white_face, green_face, blue_face, red_face)
+# red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_face)
+# green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
+# white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
 
-print(cube)
-
-
+# print(cube)
 
 # Step 1 - White Cross
 # while faces[0].tm != 'w' and faces[0].ml != 'w' and faces[0].mr != 'r' and faces[0].bm != 'r':

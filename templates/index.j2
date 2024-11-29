@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rubiks Solver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1 id="title">Solve a Rubiks Cube</h1>
+    <div id="face">
+        <div class="top left panel" id="topleft" style="background: {{ cube.front.panels[0] }};"></div>
+        <div class="top mid-d panel" id="topmid" style="background: {{ cube.front.panels[1] }};"></div>
+        <div class="top right panel" id="topright" style="background: {{ cube.front.panels[2] }};"></div>
+        <div class="mid-a left panel" id="midleft" style="background: {{ cube.front.panels[3] }};"></div>
+        <div class="mid-a mid-d panel" id="middle" style="background: {{ cube.front.colour }};"></div>
+        <div class="mid-a right panel" id="midright" style="background: {{ cube.front.panels[4] }};"></div>
+        <div class="bottom left panel" id="bottomleft" style="background: {{ cube.front.panels[5] }};"></div>
+        <div class="bottom mid-d panel" id="bottommid" style="background: {{ cube.front.panels[6] }};"></div>
+        <div class="bottom right panel" id="bottomright" style="background: {{ cube.front.panels[7] }};"></div>
+    </div>
+</body>
+</html>
