@@ -32,7 +32,18 @@ def index():
     faces.append(yellow_face)
 
     cube = Cube(faces)
-    cube.turn('forward')
+
+    cube.twist('left')
+    cube.turn('counter')
+    cube.twist('top', 'reverse')
+    # cube.twist('face', 'reverse')
+    # cube.turn('backward')
+    # cube.twist('right')
+    
+    # Step 1 - White Cross
+    # cube.turn('clockwise')
+    #     print('Hello')
+
     return render_template('index.j2', cube=cube)
 
 if __name__ == '__main__':

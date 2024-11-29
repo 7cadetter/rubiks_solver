@@ -5,73 +5,81 @@
 #face {
     position: relative;
     margin: auto;
-    width: 400px;
-    height: 400px;
+    bottom: 80px; 
+    width: 300px;
+    height: 300px;
+}
+
+.lilface {
+    position: relative;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+}
+
+#topface {
+    top: 0px;
+}
+
+#leftface {
+    right: 17%;
+    top: 135px;
+}
+
+#rightface {
+    left: 17%;
+    bottom: 285px;
+}
+
+#topface {
+    left: 5px;
+}
+
+#bottomface {
+    left: 5px;
+    bottom: 150px;
+}
+
+#backface {
+    right: 35%;
+    bottom: 527px;
 }
 
 .panel {
     position: absolute;
-    width: 130px;
-    height: 130px;
+    width: 32.5%; 
+    height: 32.5%;
+    border: 5px solid black;
 }
 
-.left, .mid-d, .right {
-    border-left: 5px black solid;
+.lilpanel {
+    position: absolute;
+    width: 32.5%; 
+    height: 32.5%;
+    border: 0.875px solid black;
 }
 
-.top, .mid-a, .bottom {
-    border-top: 5px black solid;
+#topleft, #midleft, #bottomleft {
+    left: 0%;
 }
 
-.bottom {
-    border-bottom: 5px black solid;
+#topmid, #middle, #bottommid {
+    left: 33.75%;
 }
 
-.right {
-    border-right: 5px black solid;
+#topright, #midright, #bottomright {
+    left: 67.5%;
 }
 
-#topleft {
-    left: 0px;
-    top: 0px;
+#topleft, #topmid, #topright {
+    top: 0%;
 }
 
-#topmid {
-    left: 130px;
-    top: 0;
+
+#midleft, #middle, #midright {
+    top: 33.75%;
 }
 
-#topright {
-    left: 260px;
-    top: 0;
-}
-
-#midleft {
-    left: 0px;
-    top: 130px;
-}
-
-#middle {
-    left: 130px;
-    top: 130px;
-}
-
-#midright {
-    left: 260px;
-    top: 130px;
-}
-
-#bottomleft {
-    left: 0px;
-    top: 260px;
-}
-
-#bottommid {
-    left: 130px;
-    top: 260px;
-}
-
-#bottomright {
-    left: 260px;
-    top: 260px;
+#bottomleft, #bottommid, #bottomright {
+    top: 67.5%;
 }

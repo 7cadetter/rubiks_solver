@@ -6,16 +6,71 @@
 </head>
 <body>
     <h1 id="title">Solve a Rubiks Cube</h1>
+    <div class="lilface" id="topface">
+        <div class="lilpanel" id="topleft" style="background: {{ cube.top.panels[0] }};"></div>
+        <div class="lilpanel" id="topmid" style="background: {{ cube.top.panels[1] }};"></div>
+        <div class="lilpanel" id="topright" style="background: {{ cube.top.panels[2] }};"></div>
+        <div class="lilpanel" id="midleft" style="background: {{ cube.top.panels[3] }};"></div>
+        <div class="lilpanel" id="middle" style="background: {{ cube.top.colour }};"></div>
+        <div class="lilpanel" id="midright" style="background: {{ cube.top.panels[4] }};"></div>
+        <div class="lilpanel" id="bottomleft" style="background: {{ cube.top.panels[5] }};"></div>
+        <div class="lilpanel" id="bottommid" style="background: {{ cube.top.panels[6] }};"></div>
+        <div class="lilpanel" id="bottomright" style="background: {{ cube.top.panels[7] }};"></div>
+    </div>
+    <div class="lilface" id="leftface">
+        <div class="lilpanel" id="topleft" style="background: {{ cube.left.panels[0] }};"></div>
+        <div class="lilpanel" id="topmid" style="background: {{ cube.left.panels[1] }};"></div>
+        <div class="lilpanel" id="topright" style="background: {{ cube.left.panels[2] }};"></div>
+        <div class="lilpanel" id="midleft" style="background: {{ cube.left.panels[3] }};"></div>
+        <div class="lilpanel" id="middle" style="background: {{ cube.left.colour }};"></div>
+        <div class="lilpanel" id="midright" style="background: {{ cube.left.panels[4] }};"></div>
+        <div class="lilpanel" id="bottomleft" style="background: {{ cube.left.panels[5] }};"></div>
+        <div class="lilpanel" id="bottommid" style="background: {{ cube.left.panels[6] }};"></div>
+        <div class="lilpanel" id="bottomright" style="background: {{ cube.left.panels[7] }};"></div>
+    </div>
     <div id="face">
-        <div class="top left panel" id="topleft" style="background: {{ cube.front.panels[0] }};"></div>
-        <div class="top mid-d panel" id="topmid" style="background: {{ cube.front.panels[1] }};"></div>
-        <div class="top right panel" id="topright" style="background: {{ cube.front.panels[2] }};"></div>
-        <div class="mid-a left panel" id="midleft" style="background: {{ cube.front.panels[3] }};"></div>
-        <div class="mid-a mid-d panel" id="middle" style="background: {{ cube.front.colour }};"></div>
-        <div class="mid-a right panel" id="midright" style="background: {{ cube.front.panels[4] }};"></div>
-        <div class="bottom left panel" id="bottomleft" style="background: {{ cube.front.panels[5] }};"></div>
-        <div class="bottom mid-d panel" id="bottommid" style="background: {{ cube.front.panels[6] }};"></div>
-        <div class="bottom right panel" id="bottomright" style="background: {{ cube.front.panels[7] }};"></div>
+        <div class="panel" id="topleft" style="background: {{ cube.front.panels[0] }};"></div>
+        <div class="panel" id="topmid" style="background: {{ cube.front.panels[1] }};"></div>
+        <div class="panel" id="topright" style="background: {{ cube.front.panels[2] }};"></div>
+        <div class="panel" id="midleft" style="background: {{ cube.front.panels[3] }};"></div>
+        <div class="panel" id="middle" style="background: {{ cube.front.colour }};"></div>
+        <div class="panel" id="midright" style="background: {{ cube.front.panels[4] }};"></div>
+        <div class="panel" id="bottomleft" style="background: {{ cube.front.panels[5] }};"></div>
+        <div class="panel" id="bottommid" style="background: {{ cube.front.panels[6] }};"></div>
+        <div class="panel" id="bottomright" style="background: {{ cube.front.panels[7] }};"></div>
+    </div>
+    <div class="lilface" id="rightface">
+        <div class="lilpanel" id="topleft" style="background: {{ cube.right.panels[0] }};"></div>
+        <div class="lilpanel" id="topmid" style="background: {{ cube.right.panels[1] }};"></div>
+        <div class="lilpanel" id="topright" style="background: {{ cube.right.panels[2] }};"></div>
+        <div class="lilpanel" id="midleft" style="background: {{ cube.right.panels[3] }};"></div>
+        <div class="lilpanel" id="middle" style="background: {{ cube.right.colour }};"></div>
+        <div class="lilpanel" id="midright" style="background: {{ cube.right.panels[4] }};"></div>
+        <div class="lilpanel" id="bottomleft" style="background: {{ cube.right.panels[5] }};"></div>
+        <div class="lilpanel" id="bottommid" style="background: {{ cube.right.panels[6] }};"></div>
+        <div class="lilpanel" id="bottomright" style="background: {{ cube.right.panels[7] }};"></div>
+    </div>
+    <div class="lilface" id="bottomface">
+        <div class="lilpanel" id="topleft" style="background: {{ cube.bottom.panels[0] }};"></div>
+        <div class="lilpanel" id="topmid" style="background: {{ cube.bottom.panels[1] }};"></div>
+        <div class="lilpanel" id="topright" style="background: {{ cube.bottom.panels[2] }};"></div>
+        <div class="lilpanel" id="midleft" style="background: {{ cube.bottom.panels[3] }};"></div>
+        <div class="lilpanel" id="middle" style="background: {{ cube.bottom.colour }};"></div>
+        <div class="lilpanel" id="midright" style="background: {{ cube.bottom.panels[4] }};"></div>
+        <div class="lilpanel" id="bottomleft" style="background: {{ cube.bottom.panels[5] }};"></div>
+        <div class="lilpanel" id="bottommid" style="background: {{ cube.bottom.panels[6] }};"></div>
+        <div class="lilpanel" id="bottomright" style="background: {{ cube.bottom.panels[7] }};"></div>
+    </div>
+    <div class="lilface" id="backface">
+        <div class="lilpanel" id="topleft" style="background: {{ cube.back.panels[0] }};"></div>
+        <div class="lilpanel" id="topmid" style="background: {{ cube.back.panels[1] }};"></div>
+        <div class="lilpanel" id="topright" style="background: {{ cube.back.panels[2] }};"></div>
+        <div class="lilpanel" id="midleft" style="background: {{ cube.back.panels[3] }};"></div>
+        <div class="lilpanel" id="middle" style="background: {{ cube.back.colour }};"></div>
+        <div class="lilpanel" id="midright" style="background: {{ cube.back.panels[4] }};"></div>
+        <div class="lilpanel" id="bottomleft" style="background: {{ cube.back.panels[5] }};"></div>
+        <div class="lilpanel" id="bottommid" style="background: {{ cube.back.panels[6] }};"></div>
+        <div class="lilpanel" id="bottomright" style="background: {{ cube.back.panels[7] }};"></div>
     </div>
 </body>
 </html>

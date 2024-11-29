@@ -161,13 +161,6 @@ class Face(object):
                 f'{self.panels[3][:1]}  {self.colour[0][:1]}  {self.panels[4][:1]}\n'
                 f'{self.panels[5][:1]}  {self.panels[6][:1]}  {self.panels[7][:1]}\n\n')
 
-    # def set_neighbours(self, top, bottom, left, right, opp):
-    #     self.neighbours['top'] = top
-    #     self.neighbours['bottom'] = bottom
-    #     self.neighbours['left'] = left
-    #     self.neighbours['right'] = right
-    #     self.neighbours['opp'] = opp
-
     def rotate(self, direction='clock'):
         orient_corn = [0, 2, 7, 5]
         orient_edge = [1, 4, 6, 3]
@@ -191,77 +184,6 @@ class Face(object):
     def flip(self):
         self.rotate()
         self.rotate()
-
-
-
-
-colours = ['white', 'blue', 'orange', 'red', 'green', 'yellow']
-valid_inputs = ['w', 'b', 'r', 'o', 'g', 'y']
-# faces = []
-
-# panels = ['w1', 'w2', 'w3', 'w4', 'w6', 'w7', 'w8', 'w9']
-# white_face = Face('white', panels)
-# faces.append(white_face)
-# panels = ['b1', 'b2', 'b3', 'b4', 'b6', 'b7', 'b8', 'b9']
-# blue_face = Face('blue', panels)
-# faces.append(blue_face)
-# panels = ['o1', 'o2', 'o3', 'o4', 'o6', 'o7', 'o8', 'o9']
-# orange_face = Face('orange', panels)
-# faces.append(orange_face)
-# panels = ['r1', 'r2','r3', 'r4', 'r6', 'r7', 'r8', 'r9']
-# red_face = Face('red', panels)
-# faces.append(red_face)
-# panels = ['g1', 'g2', 'g3', 'g4', 'g6', 'g7', 'g8', 'g9']
-# green_face = Face('green', panels)
-# faces.append(green_face)
-# panels = ['y1', 'y2', 'y3', 'y4', 'y6', 'y7', 'y8', 'y9']
-# yellow_face = Face('yellow', panels)
-# faces.append(yellow_face)
-
-# cube = Cube(faces)
-
-# white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
-# blue_face.set_neighbours(yellow_face, white_face, orange_face, red_face, green_face)
-# orange_face.set_neighbours(yellow_face, white_face, green_face, blue_face, red_face)
-# red_face.set_neighbours(yellow_face, white_face, blue_face, green_face, orange_face)
-# green_face.set_neighbours(yellow_face, white_face, red_face, orange_face, blue_face)
-# white_face.set_neighbours(blue_face, green_face, orange_face, red_face, yellow_face)
-
-# print(cube)
-
-# Step 1 - White Cross
-# while faces[0].tm != 'w' and faces[0].ml != 'w' and faces[0].mr != 'r' and faces[0].bm != 'r':
-
-
-    # for colour in colours:
-    #     print(f'Pattern on {colour} face? Enter first letter of colour (white = w, etc.')
-    #     tl = input('Top left: ')
-    #     while tl not in valid_inputs:
-    #         tl = input('Invalid input. Top left: ')
-    #     tm = input('Top middle: ')
-    #     while tm not in valid_inputs:
-    #         tm = input('Invalid input. Top middle: ')
-    #     tr = input('Top right: ')
-    #     while tr not in valid_inputs:
-    #         tr = input('Invalid input. Top right: ')
-    #     ml = input('Middle left: ')
-    #     while ml not in valid_inputs:
-    #         ml = input('Invalid input. Middle left: ')
-    #     mr = input('Middle right: ')
-    #     while mr not in valid_inputs:
-    #         mr = input('Invalid input. Middle right: ')
-    #     bl = input('Bottom left: ')
-    #     while bl not in valid_inputs:
-    #         bl = input('Invalid input. Bottom left: ')
-    #     bm = input('Bottom middle: ')
-    #     while bm not in valid_inputs:
-    #         bm = input('Invalid input. Bottom middle: ')
-    #     br = input('Bottom right: ')
-    #     while br not in valid_inputs:
-    #         br = input('Invalid input. Bottom right: ')
-    #     print('\n\n')
-    #     face = Face(colour, tl, tm, tr, ml, mr, bl, bm, br)
-    #     faces.append(face)
 
 
 
