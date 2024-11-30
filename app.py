@@ -33,12 +33,15 @@ def index():
 
     cube = Cube(faces)
 
-    cube.twist('left')
+    cube.turn('forward')
+    cube.twist('face', 'r')
+    cube.switch()
+    cube.twist('bottom')
+    cube.twist('left', 'r')
     cube.turn('counter')
-    cube.twist('top', 'reverse')
-    # cube.twist('face', 'reverse')
-    # cube.turn('backward')
-    # cube.twist('right')
+    cube.turn('left')
+    cube.twist('face')
+
     
     # Step 1 - White Cross
     # cube.turn('clockwise')

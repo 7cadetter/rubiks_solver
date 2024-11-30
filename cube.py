@@ -63,7 +63,9 @@ class Cube(object):
             self.right.rotate('anti')
             self.back.rotate()
             self.front.rotate('anti')
-        print(f"Turning {direction}")
+
+        for face in self.faces:
+            face.set_lines()
 
     def twist (self, side, direction='normal'):
         if side == 'face':
@@ -72,7 +74,7 @@ class Cube(object):
                 self.shift_lines(self.top.b_line, self.right.l_line, self.bottom.u_line, self.left.r_line)
                 self.top.b_line.reverse()
                 self.bottom.u_line.reverse()
-            elif direction == 'reverse':
+            elif direction == 'r':
                 self.front.rotate('anti')
                 self.shift_lines(self.top.b_line, self.left.r_line, self.bottom.u_line, self.right.l_line)
                 self.right.l_line.reverse()
@@ -86,7 +88,7 @@ class Cube(object):
                 self.left.rotate()
                 self.shift_lines(self.front.l_line, self.bottom.l_line, self.back.r_line, self.top.l_line)
                 self.top.l_line.reverse()
-            elif direction == 'reverse':
+            elif direction == 'r':
                 self.left.rotate('anti')
                 self.shift_lines(self.front.l_line, self.top.l_line, self.back.r_line, self.bottom.l_line)
                 self.bottom.l_line.reverse()
@@ -100,7 +102,7 @@ class Cube(object):
                 self.right.rotate()
                 self.shift_lines(self.front.r_line, self.top.r_line, self.back.l_line, self.bottom.r_line)
                 self.bottom.r_line.reverse()
-            elif direction == 'reverse':
+            elif direction == 'r':
                 self.right.rotate('anti')
                 self.shift_lines(self.front.r_line, self.bottom.r_line, self.back.l_line, self.top.r_line)
                 self.top.r_line.reverse()
@@ -113,7 +115,7 @@ class Cube(object):
             if direction == 'normal':
                 self.top.rotate()
                 self.shift_lines(self.front.u_line, self.left.u_line, self.back.u_line, self.right.u_line)
-            elif direction == 'reverse':
+            elif direction == 'r':
                 self.top.rotate('anti')
                 self.shift_lines(self.front.u_line, self.right.u_line, self.back.u_line, self.left.u_line)
             self.front.panels[0], self.front.panels[1], self.front.panels[2] = self.front.u_line
@@ -124,13 +126,16 @@ class Cube(object):
             if direction == 'normal':
                 self.bottom.rotate()
                 self.shift_lines(self.front.b_line, self.right.b_line, self.back.b_line, self.left.b_line)
-            elif direction == 'reverse':
+            elif direction == 'r':
                 self.bottom.rotate('anti')
                 self.shift_lines(self.front.b_line, self.left.b_line, self.back.b_line, self.right.b_line)
             self.front.panels[5], self.front.panels[6], self.front.panels[7] = self.front.b_line
             self.left.panels[5], self.left.panels[6], self.left.panels[7] = self.left.b_line
             self.back.panels[5], self.back.panels[6], self.back.panels[7] = self.back.b_line
             self.right.panels[5], self.right.panels[6], self.right.panels[7] = self.right.b_line
+        
+        for face in self.faces:
+            face.set_lines()
 
     def shift_lines(self, line1, line2, line3, line4):
         temp = line1[:]
@@ -139,22 +144,16 @@ class Cube(object):
         line3[:] = line2
         line2[:] = temp
 
+    def switch(self):
+        self.turn('left')
+        self.turn('left')
+
+
 class Face(object):
     def __init__(self, colour, panels):
         self.colour = colour
         self.panels = panels
-        self.l_line = [panels[0], panels[3], panels[5]]
-        self.r_line = [panels[2], panels[4], panels[7]]
-        self.u_line = [panels[0], panels[1], panels[2]]
-        self.b_line = [panels[5], panels[6], panels[7]]
-
-        self.neighbours = {
-            'top': None,
-            'bottom': None,
-            'left': None,
-            'right': None,
-            'opp': None
-        }
+        self.set_lines()
 
     def __str__(self):
         return (f'{self.panels[0][:1]}  {self.panels[1][:1]}  {self.panels[2][:1]}\n'
@@ -181,9 +180,24 @@ class Face(object):
 
             self.panels[i] = panel_copy[group[index]]
 
+        if direction == 'clock':
+            self.u_line, self.r_line, self.b_line, self.l_line = (
+                self.l_line, self.u_line, self.r_line, self.b_line
+                )
+        elif direction == 'anti':
+            self.u_line, self.l_line, self.b_line, self.r_line = (
+                self.r_line, self.u_line, self.l_line, self.b_line
+            )
+
     def flip(self):
-        self.rotate()
-        self.rotate()
+            self.rotate()
+            self.rotate()
+
+    def set_lines(self):
+        self.l_line = [self.panels[0], self.panels[3], self.panels[5]]
+        self.r_line = [self.panels[2], self.panels[4], self.panels[7]]
+        self.u_line = [self.panels[0], self.panels[1], self.panels[2]]
+        self.b_line = [self.panels[5], self.panels[6], self.panels[7]]
 
 
 
