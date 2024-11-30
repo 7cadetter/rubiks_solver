@@ -157,7 +157,7 @@ class Face(object):
 
     def __str__(self):
         return (f'{self.panels[0][:1]}  {self.panels[1][:1]}  {self.panels[2][:1]}\n'
-                f'{self.panels[3][:1]}  {self.colour[0][:1]}  {self.panels[4][:1]}\n'
+                f'{self.panels[3][:1]}  {self.colour[8][:1]}  {self.panels[4][:1]}\n'
                 f'{self.panels[5][:1]}  {self.panels[6][:1]}  {self.panels[7][:1]}\n\n')
 
     def rotate(self, direction='clock'):
