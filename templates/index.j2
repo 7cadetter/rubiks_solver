@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1 id="title">Solve a Rubiks Cube</h1>
-    <button type='button' class='turn' id='counter'>Turn counter-clockwise</button>
-    <button type='button' class='turn' id='clockwise'>Turn clockwise</button>
+    <h1 class="title">Solve a Rubiks Cube</h1>
+    <button type="button" class="turn" id="counter">Turn counter-clockwise</button>
+    <button type="button" class="turn" id="clockwise">Turn clockwise</button>
     <div class="lilface" id="topface">
         <div class="lilpanel topleft" id="top0" style="background: {{ cube.top.panels[0] }};"></div>
         <div class="lilpanel topmid" id="top1" style="background: {{ cube.top.panels[1] }};"></div>
@@ -78,6 +78,15 @@
         <div class="lilpanel bottomleft" id="back5" style="background: {{ cube.back.panels[5] }};"></div>
         <div class="lilpanel bottommid" id="back6" style="background: {{ cube.back.panels[6] }};"></div>
         <div class="lilpanel bottomright" id="back7" style="background: {{ cube.back.panels[7] }};"></div>
+    </div>
+    <div id="colourpicker">
+        <h1 class="title" id="boxtitle">Colours</h1>
+        <div class="colour" id="red"></div>
+        <div class="colour" id="blue"></div>
+        <div class="colour" id="yellow"></div>
+        <div class="colour" id="green"></div>
+        <div class="colour" id="orange"></div>
+        <div class="colour" id="white"></div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
