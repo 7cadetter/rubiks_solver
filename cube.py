@@ -44,25 +44,31 @@ class Cube(object):
             self.bottom.rotate()
             self.top.rotate('anti')
         elif direction == 'clockwise':
-            self.top, self.right, self.bottom, self.left = (
-                self.left, self.top, self.right, self.bottom
-            )
-            self.top.rotate()
-            self.bottom.rotate()
-            self.left.rotate()
-            self.right.rotate()
-            self.front.rotate()
-            self.back.rotate('anti')
+            # self.top, self.right, self.bottom, self.left = (
+            #     self.left, self.top, self.right, self.bottom
+            # )
+            # self.top.rotate()
+            # self.bottom.rotate()
+            # self.left.rotate()
+            # self.right.rotate()
+            # self.front.rotate()
+            # self.back.rotate('anti')
+            self.turn('forward')
+            self.turn('right')
+            self.turn('backward')
         elif direction == 'counter':
-            self.top, self.right, self.bottom, self.left = (
-                self.right, self.bottom, self.left, self.top
-            )
-            self.top.rotate('anti')
-            self.bottom.rotate('anti')
-            self.left.rotate('anti')
-            self.right.rotate('anti')
-            self.back.rotate()
-            self.front.rotate('anti')
+            # self.top, self.right, self.bottom, self.left = (
+            #     self.right, self.bottom, self.left, self.top
+            # )
+            # self.top.rotate('anti')
+            # self.bottom.rotate('anti')
+            # self.left.rotate('anti')
+            # self.right.rotate('anti')
+            # self.back.rotate()
+            # self.front.rotate('anti')
+            self.turn('forward')
+            self.turn('left')
+            self.turn('backward')
 
         for face in self.faces:
             face.set_lines()

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, request, jsonify, render_template
 from cube import Cube, Face
 
 app = Flask(__name__)
@@ -39,7 +39,12 @@ def index():
 
 @app.route('/turn', methods=['POST'])
 def turn():
-    cube.turn('left')
+    direction = request.args.get('direction')
+
+    if direction == 'switch':
+        cube.switch()
+    else:
+        cube.turn(direction)
 
     new_faces = {
         'top': cube.top.panels,
@@ -54,8 +59,6 @@ def turn():
         "new_faces": new_faces
     }
     return jsonify(result)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

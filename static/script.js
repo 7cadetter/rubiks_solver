@@ -1,13 +1,16 @@
-document.getElementById('turn').addEventListener('click', async function() {
-    await turn();
-});
-
-async function turn() {
-    const response = await fetch('/turn', { method: 'POST' });
+async function turn(direction) {
+    const response = await fetch(`/turn?direction=${direction}`, { method: 'POST' });
     const data = await response.json();
-    
     updatePanels(data.new_faces);
 }
+
+document.getElementById('rightface').addEventListener('click', () => turn('left'));
+document.getElementById('leftface').addEventListener('click', () => turn('right'));
+document.getElementById('topface').addEventListener('click', () => turn('forward'));
+document.getElementById('bottomface').addEventListener('click', () => turn('backward'));
+document.getElementById('backface').addEventListener('click', () => turn('switch'));
+document.getElementById('counter').addEventListener('click', () => turn('counter'));
+document.getElementById('clockwise').addEventListener('click', () => turn('clockwise'));
 
 function updatePanels(newFaces) {
     for (let face in newFaces) {
