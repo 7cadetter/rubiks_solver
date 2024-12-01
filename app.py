@@ -55,10 +55,40 @@ def turn():
         'back': cube.back.panels
     }
     result = {
-        "message": "Cube turned successfully!",
+        "message": "Cube turned successfully",
         "new_faces": new_faces
     }
     return jsonify(result)
+
+@app.route('/set', methods=['POST'])
+def set():
+    panel = request.args.get('panel')
+    colour = request.args.get('colour')
+    panel_num = int(panel[-1])
+    cube.front.panels[panel_num] = colour
+
+    result = 'Panel set successfully'
+
+    return jsonify(result)
+
+@app.route('/reset', methods=['POST'])
+def reset():
+    cube.reset()
+
+    new_faces = {
+        'top': cube.top.panels,
+        'front': cube.front.panels,
+        'left': cube.left.panels,
+        'right': cube.right.panels,
+        'bottom': cube.bottom.panels,
+        'back': cube.back.panels
+    }
+    result = {
+        "message": "Cube turned successfully",
+        "new_faces": new_faces
+    }
+    return jsonify(result)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

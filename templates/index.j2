@@ -6,8 +6,9 @@
 </head>
 <body>
     <h1 class="title">Solve a Rubiks Cube</h1>
-    <button type="button" class="turn" id="counter">Turn counter-clockwise</button>
-    <button type="button" class="turn" id="clockwise">Turn clockwise</button>
+    <button type="button" class="button" id="counter">Turn counter-clockwise</button>
+    <button type="button" class="button" id="clockwise">Turn clockwise</button>
+    <button type="button" class="button" id="reset">Reset</button>
     <div class="lilface" id="topface">
         <div class="lilpanel topleft" id="top0" style="background: {{ cube.top.panels[0] }};"></div>
         <div class="lilpanel topmid" id="top1" style="background: {{ cube.top.panels[1] }};"></div>
@@ -81,12 +82,12 @@
     </div>
     <div id="colourpicker">
         <h1 class="title" id="boxtitle">Colours</h1>
-        <div class="colour" id="red"></div>
-        <div class="colour" id="blue"></div>
-        <div class="colour" id="yellow"></div>
-        <div class="colour" id="green"></div>
-        <div class="colour" id="orange"></div>
-        <div class="colour" id="white"></div>
+        <button type="button" class="colour" id="red"></button>
+        <button type="button" class="colour" id="blue"></button>
+        <button type="button" class="colour" id="yellow"></button>
+        <button type="button" class="colour" id="green"></button>
+        <button type="button" class="colour" id="orange"></button>
+        <button type="button" class="colour" id="white"></button>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

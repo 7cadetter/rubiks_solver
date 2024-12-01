@@ -8,7 +8,7 @@ body, html {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-.turn {
+.button {
     position: absolute;
     width: 150px;
     height: 80px;
@@ -26,6 +26,11 @@ body, html {
     right: 450px;
 }
 
+#reset {
+    left: 163px;
+    background: rgb(255, 41, 41)
+}
+
 #face {
     position: relative;
     margin: auto;
@@ -40,6 +45,7 @@ body, html {
     width: 120px;
     height: 120px;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .lilface:hover {
@@ -80,6 +86,7 @@ body, html {
     height: 32.5%;
     border: 5px solid black;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .panel:hover {
@@ -142,6 +149,7 @@ body, html {
     z-index: 1;
     border-radius: 25px;
     border: 2px black solid;
+    cursor: pointer;
 }
 
 #red {

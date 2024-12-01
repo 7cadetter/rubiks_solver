@@ -154,6 +154,17 @@ class Cube(object):
         self.turn('left')
         self.turn('left')
 
+    def reset(self):
+        f_colour, l_colour, r_colour, t_colour, bt_colour, bk_colour = (
+            self.front.colour, self.left.colour, self.right.colour, self.top.colour, self.bottom.colour, self.back.colour
+        )
+        self.bottom.panels = [bt_colour for _ in self.bottom.panels]
+        self.front.panels = [f_colour for _ in self.front.panels]
+        self.left.panels = [l_colour for _ in self.left.panels]
+        self.right.panels = [r_colour for _ in self.right.panels]
+        self.top.panels = [t_colour for _ in self.top.panels]
+        self.back.panels = [bk_colour for _ in self.back.panels]
+
 
 class Face(object):
     def __init__(self, colour, panels):
