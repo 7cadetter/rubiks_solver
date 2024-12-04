@@ -6,27 +6,27 @@ app = Flask(__name__)
 faces = []
 
 panels = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
-bottom_face = Face('white', panels)
+bottom_face = Face(panels)
 faces.append(bottom_face)
 
 panels = ['blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue']
-front_face = Face('blue', panels)
+front_face = Face(panels)
 faces.append(front_face)
 
 panels = ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange']
-left_face = Face('orange', panels)
+left_face = Face(panels)
 faces.append(left_face)
 
 panels = ['red', 'red','red', 'red', 'red', 'red', 'red', 'red', 'red']
-right_face = Face('red', panels)
+right_face = Face(panels)
 faces.append(right_face)
 
 panels = ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
-back_face = Face('green', panels)
+back_face = Face(panels)
 faces.append(back_face)
 
 panels = ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow']
-top_face = Face('yellow', panels)
+top_face = Face(panels)
 faces.append(top_face)
 
 cube = Cube(faces)
@@ -45,7 +45,7 @@ def index():
     cube.twist('bottom')
     cube.twist('right')
 
-    cube.white_cross()
+    cube.solve()
 
     return render_template('index.j2', cube=cube)
 
