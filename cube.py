@@ -1,4 +1,5 @@
 import copy
+import time
 
 class Cube(object):
     def __init__(self, faces):
@@ -376,10 +377,95 @@ class Cube(object):
             self.twist('top', 'r')
             self.twist('face', 'r')
             phase += 1
+
+    def yellow_cross_orient(self):
+        print('\nYELLOW CROSS ORIENT')
+        turns = 0
+        twists = 0
+        while self.back.panels[1] != self.back.panels[8] or self.right.panels[1] != self.right.panels[8]:
+            print('Turning left\n')
+            self.turn('left')
+            turns += 1
+
+            if turns == 4:
+                print('Twisting top r')
+                self.twist('top', 'r')
+                turns = 0
+                twists += 1
+
+            if twists == 4:
+                print('Twists is 4, doing RURURUURU')
+                self.twist('right')
+                self.twist('top')
+                self.twist('right', 'r')
+                self.twist('top')
+                self.twist('right')
+                self.twist('top')
+                self.twist('top')
+                self.twist('right', 'r')
+                self.twist('top')
+
+                twists = 0
         
+        print('Doing RURURUURU')
+        self.twist('right')
+        self.twist('top')
+        self.twist('right', 'r')
+        self.twist('top')
+        self.twist('right')
+        self.twist('top')
+        self.twist('top')
+        self.twist('right', 'r')
+        self.twist('top')
+
+    def yellow_corners(self):
+        print('\nYELLOW CORNERS')
+        turns = 0
+
+        colours = sorted([self.front.panels[8], self.right.panels[8], 'yellow'])
+        current_colours = sorted([self.front.panels[2], self.right.panels[0], self.top.panels[7]])
+
+        print(f'{colours}, {current_colours}')
+
+        while colours != current_colours:
+            print('\nTurning left')
+            self.turn('left')
+            turns += 1
+
+            if turns == 4:
+                print('Turned left 4 times. Doing URULURUL')
+                self.twist('top')
+                self.twist('right')
+                self.twist('top', 'r')
+                self.twist('left', 'r')
+                self.twist('top')
+                self.twist('right', 'r')
+                self.twist('top', 'r')
+                self.twist('left')
+                turns = 0
 
 
+            colours = sorted([self.front.panels[8], self.right.panels[8], 'yellow'])
+            current_colours = sorted([self.front.panels[2], self.right.panels[0], self.top.panels[7]])
+            print(f'{colours}, {current_colours}')
+        
+        colours = sorted([self.front.panels[8], self.left.panels[8], 'yellow'])
+        current_colours = sorted([self.front.panels[0], self.left.panels[2], self.top.panels[5]])
 
+        while colours != current_colours:
+            print('Doing URULURUL')
+            self.twist('top')
+            self.twist('right')
+            self.twist('top', 'r')
+            self.twist('left', 'r')
+            self.twist('top')
+            self.twist('right', 'r')
+            self.twist('top', 'r')
+            self.twist('left')
+
+            colours = [self.front.panels[8], self.left.panels[8], 'yellow']
+            current_colours = [self.front.panels[0], self.left.panels[2], self.top.panels[5]]
+        
 
     def solve(self):
 
@@ -410,12 +496,30 @@ class Cube(object):
         # Step 4 - Yellow Cross (FRURUF)
         if self.top.yellow_phase() < 4:
             self.yellow_cross()
+    
+        if self.front.panels[1] != self.front.panels[8] or self.left.panels[1] != self.leftt.panels[8] \
+        or self.right.panels[1] != self.right.panels[8] or self.back.panels[1] != self.back.panels[8]:
+            self.yellow_cross_orient()
 
-        # Step 5 - Switch Block Tops (RURURUURU)
+        # Step 5 - Yellow Corners (URULURUL)
+        front_left = [self.front.panels[8], self.left.panels[8], 'yellow'].sort
+        fl_current = [self.front.panels[0], self.left.panels[2], self.top.panels[5]].sort
 
-        # Step 6 - Switch Top Corners (URULURUL)
+        front_right = [self.front.panels[8], self.right.panels[8], 'yellow'].sort
+        fr_current = [self.front.panels[2], self.right.panels[0], self.top.panels[7]].sort
 
-        # Step 7 - Finish (Down Left Up Right)
+        back_left = [self.back.panels[8], self.left.panels[8], 'yellow'].sort
+        bl_current = [self.back.panels[2], self.left.panels[0], self.top.panels[0]].sort
+
+        back_right = [self.back.panels[8], self.right.panels[8], 'yellow'].sort
+        br_current = [self.back.panels[0], self.right.panels[2], self.top.panels[2]].sort
+
+        if front_left != fl_current or front_right != fr_current \
+        or back_left != bl_current or back_right != br_current:
+            self.yellow_corners()
+
+
+        # Step 6 - Finish (Down Left Up Right)
             
 
 
