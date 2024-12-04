@@ -213,8 +213,9 @@ class Cube(object):
                     self.twist('face')
                     self.twist('face')
 
-            print('Turning left\n')
+            print('Turning left 1\n')
             self.turn('left')
+         
     
 
     def white_cross_orient(self):
@@ -225,7 +226,7 @@ class Cube(object):
         print(f'{self.front.panels[1]} in position')
 
         self.turn('left')
-        print('Turning left\n')
+        print('Turning left 2\n')
         if self.front.panels[1] != self.front.panels[8]:
             print('Face upside-down')
             self.twist('face')
@@ -245,87 +246,107 @@ class Cube(object):
 
     def white_corners(self):
         print('\nWHITE CORNERS')
+        turns = 0
         while self.top.panels[0] != 'white' or self.top.panels[2] != 'white' or \
         self.top.panels[5] != 'white' or self.top.panels[7] != 'white':
-            while 'white' not in self.front.panels:
-                print('Turning left\n')
+            while 'white' not in self.front.panels and self.bottom.panels[0] != 'white':
+                print('Turning left 3\n')
                 self.turn('left')
 
             if self.front.panels[0] == 'white':
+                print('For 1: ')
                 print('Twisting left')
                 self.twist('left')
                 print('Twisting bottom')
                 self.twist('bottom')
                 print('Twisting left back')
                 self.twist('left', 'r')
+                 
 
             if self.front.panels[2] == 'white':
+                print('For 3:')
                 print('Twisting right r')
-                self.twist('right')
+                self.twist('right', 'r')
                 print('Twisting bottom')
                 self.twist('bottom')
                 print('Twisting right back')
                 self.twist('right')
+                 
             
             if self.front.panels[7] == 'white':
                 while self.right.panels[5] != self.right.panels[8]:
+                    print('For 9:')
                     print('Twisting bottom')
                     self.twist('bottom')
-                    print('Turning left\n')
+                    print('Turning left 4\n')
                     self.turn('left')
-                print('Twisting face')
+                    
+                print('Correct colours found. Twisting face')
                 self.twist('face')
                 print('Twisting bottom')
                 self.twist('bottom')
                 print('Twisting face back')
                 self.twist('face', 'r')
+                 
 
             if self.front.panels[5] == 'white':
                 while self.left.panels[7] != self.left.panels[8]:
+                    print('For 7:')
                     print('Twisting bottom')
                     self.twist('bottom')
-                    print('Turning left\n')
+                    print('Turning left 5\n')
                     self.turn('left')
-                print('Twisting face r')
+ 
+                print('Correct colours found. Twisting face r')
                 self.twist('face', 'r')
                 print('Twisting bottom r')
                 self.twist('bottom', 'r')
                 print('Twisting face back')
                 self.twist('face')
+                 
 
             if self.bottom.panels[0] == 'white':
+                print('bottom')
                 while self.front.panels[5] != self.left.panels[8]:
                     print(f'{self.front.panels[5]}, {self.left.panels[8]}')
                     print('Twisting bottom')
                     self.twist('bottom')
-                    print('Turning left\n')
+                    print('Turning left 6\n')
                     self.turn('left')
-                print('Turning right')
+                print('Correct coulours found. Turning right')
                 self.turn('right')
+                 
                 print('Twisting face')
                 self.twist('face')
+                 
                 print('Twisting left')
                 self.twist('left')
+                 
                 print('Twisting bottom twice')
                 self.twist('bottom')
                 self.twist('bottom')
+                 
                 print('Twisting left r')
                 self.twist('left', 'r')
+                 
                 print('Going back to face')
                 self.turn('left')
+                 
                 print('Twisting left r')
                 self.twist('left', 'r')
+                 
     
 
     def colour_block(self):
         incomplete = True
+        turns = 0
         print('\nCOLOUR BLOCK')
         while incomplete:
             if self.front.panels[1] != 'yellow' and self.top.panels[6] != 'yellow':
                 while self.front.panels[1] != self.front.panels[8]:
                     print('Twisting top r')
                     self.twist('top', 'r')
-                    print('Turning left\n')
+                    print('Turning left 7\n')
                     self.turn('left')
                 if self.top.panels[6] == self.left.panels[8]:
                     print('Doing ULULUFUF')
@@ -355,18 +376,43 @@ class Cube(object):
                         break
                     incomplete = False
             else:
-                print('Turning left\n')
+                print('Turning left 8\n')
                 self.turn('left')
+                turns += 1
+
+                if turns == 4:
+                    print('Four turns. Doing URURUFUF')
+                    self.twist('top')
+                    self.twist('right')
+                    self.twist('top', 'r')
+                    self.twist('right', 'r')
+                    self.twist('top', 'r')
+                    self.twist('face', 'r')
+                    self.twist('top')
+                    self.twist('face')
+                    turns = 0
+
     
 
     def yellow_cross(self):
         print('\nYELLOW CROSS')
         turns = 0
         phase = self.top.yellow_phase()
-        while phase == 1 and turns < 3:
+        while phase < 2:
             self.turn('left')
             phase = self.top.yellow_phase()
             turns += 1
+
+            if turns == 4:
+                print(f'Doing FRURUF (Phase: {phase})')
+                self.twist('face')
+                self.twist('right')
+                self.twist('top')
+                self.twist('right', 'r')
+                self.twist('top', 'r')
+                self.twist('face', 'r')
+                turns = 0
+
 
         while phase < 4:
             print(f'Doing FRURUF (Phase: {phase})')
@@ -380,10 +426,11 @@ class Cube(object):
 
     def yellow_cross_orient(self):
         print('\nYELLOW CROSS ORIENT')
+        print(self)
         turns = 0
         twists = 0
         while self.back.panels[1] != self.back.panels[8] or self.right.panels[1] != self.right.panels[8]:
-            print('Turning left\n')
+            print('Turning left 9\n')
             self.turn('left')
             turns += 1
 
@@ -404,19 +451,22 @@ class Cube(object):
                 self.twist('top')
                 self.twist('right', 'r')
                 self.twist('top')
+                print(self)
 
                 twists = 0
         
-        print('Doing RURURUURU')
-        self.twist('right')
-        self.twist('top')
-        self.twist('right', 'r')
-        self.twist('top')
-        self.twist('right')
-        self.twist('top')
-        self.twist('top')
-        self.twist('right', 'r')
-        self.twist('top')
+        if self.front.panels[1] != self.front.panels[8] and self.left.panels[1] != self.left.panels[8]:
+            print('Doing RURURUURU')
+            self.twist('right')
+            self.twist('top')
+            self.twist('right', 'r')
+            self.twist('top')
+            self.twist('right')
+            self.twist('top')
+            self.twist('top')
+            self.twist('right', 'r')
+            self.twist('top')
+            print(self)
 
     def yellow_corners(self):
         print('\nYELLOW CORNERS')
@@ -428,7 +478,7 @@ class Cube(object):
         print(f'{colours}, {current_colours}')
 
         while colours != current_colours:
-            print('\nTurning left')
+            print('\nTurning left 10')
             self.turn('left')
             turns += 1
 
@@ -463,18 +513,41 @@ class Cube(object):
             self.twist('top', 'r')
             self.twist('left')
 
-            colours = [self.front.panels[8], self.left.panels[8], 'yellow']
-            current_colours = [self.front.panels[0], self.left.panels[2], self.top.panels[5]]
+            colours = sorted([self.front.panels[8], self.left.panels[8], 'yellow'])
+            current_colours = sorted([self.front.panels[0], self.left.panels[2], self.top.panels[5]])
+            print(f'{colours}, {current_colours}')
+
+    def finish_up(self):
+        print('FINISH UP')
+        twists = 0
+        while self.top.panels[7] == 'yellow':
+            print('Turning right\n')
+            self.turn('right')
+        while self.top.panels[7] != 'yellow':
+            print('Twisting right r')
+            self.twist('right', 'r')
+            print('Twisting bottom r')
+            self.twist('bottom', 'r')
+            print('Twisting right')
+            self.twist('right')
+            print('Twisting bottom')
+            self.twist('bottom')
+            while self.top.panels[7] == 'yellow':
+                print('Twisting top r\n')
+                self.twist('top', 'r')
+                twists += 1
+
+                if twists == 4:
+                    break
         
 
     def solve(self):
-
         # Step 1 - White Cross
         if self.top.panels[1] != 'white' or self.top.panels[3] != 'white' or self.top.panels[4] != 'white' \
         or self.top.panels[6] != 'white':
             self.white_cross()
 
-        if self.front.panels[1] != self.front.panels[8] or self.left.panels[1] != self.leftt.panels[8] \
+        if self.front.panels[1] != self.front.panels[8] or self.left.panels[1] != self.left.panels[8] \
         or self.right.panels[1] != self.right.panels[8] or self.back.panels[1] != self.back.panels[8]:
             self.white_cross_orient()
 
@@ -497,7 +570,7 @@ class Cube(object):
         if self.top.yellow_phase() < 4:
             self.yellow_cross()
     
-        if self.front.panels[1] != self.front.panels[8] or self.left.panels[1] != self.leftt.panels[8] \
+        if self.front.panels[1] != self.front.panels[8] or self.left.panels[1] != self.left.panels[8] \
         or self.right.panels[1] != self.right.panels[8] or self.back.panels[1] != self.back.panels[8]:
             self.yellow_cross_orient()
 
@@ -520,7 +593,9 @@ class Cube(object):
 
 
         # Step 6 - Finish (Down Left Up Right)
-            
+        if self.top.panels[0] != 'yellow' or self.top.panels[2] != 'yellow' \
+        or self.top.panels[5] != 'yellow' or self.top.panels[7] != 'yellow':
+            self.finish_up()
 
 
 class Face(object):

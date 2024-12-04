@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from cube import Cube, Face
+import random
 
 app = Flask(__name__)
 
@@ -34,18 +35,26 @@ cube = Cube(faces)
 @app.route('/')
 def index():
     cube.reset()
-    cube.twist('left')
-    cube.twist('face')
-    cube.twist('top')
-    cube.twist('top')
-    cube.twist('bottom')
+    
     cube.twist('right')
+    cube.turn('clockwise')
+    cube.twist('top')
+    cube.twist('bottom', 'r')
     cube.twist('face')
-    cube.twist('left')
-    cube.twist('bottom')
+    cube.turn('forward')
+    cube.turn('left')
     cube.twist('right')
+    cube.turn('forward')
+    cube.twist('top', 'r')
+    cube.twist('face', 'r')
+    cube.turn('backward')
+    cube.turn('counter')
+    cube.twist('bottom')
+
+
 
     cube.solve()
+    print(cube)
 
     return render_template('index.j2', cube=cube)
 
