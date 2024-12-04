@@ -148,7 +148,7 @@ class Cube(object):
             face.set_lines()
 
     def white_cross(self):
-        print('WHITE CROSS')
+        print('\nWHITE CROSS')
         if self.front.panels[8] == 'white':
             self.turn('backward')
         elif self.bottom.panels[8] == 'white':
@@ -217,7 +217,7 @@ class Cube(object):
     
 
     def white_cross_orient(self):
-        print('WHITE CROSS ORIENT')
+        print('\nWHITE CROSS ORIENT')
         while self.front.panels[1] != self.front.panels[8]:
             print('Twisting top')
             self.twist('top')
@@ -243,7 +243,7 @@ class Cube(object):
             self.twist('face')
 
     def white_corners(self):
-        print('WHITE CORNERS')
+        print('\nWHITE CORNERS')
         while self.top.panels[0] != 'white' or self.top.panels[2] != 'white' or \
         self.top.panels[5] != 'white' or self.top.panels[7] != 'white':
             while 'white' not in self.front.panels:
@@ -314,10 +314,53 @@ class Cube(object):
                 self.turn('left')
                 print('Twisting left r')
                 self.twist('left', 'r')
+    
+
+    def colour_block(self):
+        incomplete = True
+        print('\nCOLOUR BLOCK')
+        while incomplete:
+            if self.front.panels[1] != 'yellow' and self.top.panels[6] != 'yellow':
+                while self.front.panels[1] != self.front.panels[8]:
+                    print('Twisting top r')
+                    self.twist('top', 'r')
+                    print('Turning left\n')
+                    self.turn('left')
+                if self.top.panels[6] == self.left.panels[8]:
+                    print('Doing ULULUFUF')
+                    self.twist('top', 'r')
+                    self.twist('left', 'r')
+                    self.twist('top')
+                    self.twist('left')
+                    self.twist('top')
+                    self.twist('face')
+                    self.twist('top', 'r')
+                    self.twist('face', 'r')
+
+                elif self.top.panels[6] == self.right.panels[8]:
+                    print('Doing URURUFUF')
+                    self.twist('top')
+                    self.twist('right')
+                    self.twist('top', 'r')
+                    self.twist('right', 'r')
+                    self.twist('top', 'r')
+                    self.twist('face', 'r')
+                    self.twist('top')
+                    self.twist('face')
+
+                for face in self.front, self.left, self.right, self.back:
+                    if face.panels[3] != face.panels[8] or face.panels[4] != face.panels[8]:
+                        incomplete = True
+                        break
+                    incomplete = False
+            else:
+                print('Turning left\n')
+                self.turn('left')
 
 
 
     def solve(self):
+
         # Step 1 - White Cross
         if self.top.panels[1] != 'white' or self.top.panels[3] != 'white' or self.top.panels[4] != 'white' \
         or self.top.panels[6] != 'white':
@@ -327,15 +370,22 @@ class Cube(object):
         or self.right.panels[1] != self.right.panels[8] or self.back.panels[1] != self.back.panels[8]:
             self.white_cross_orient()
 
+        # Step 2 - White Corners
         for panel in self.top.panels[8]:
             if panel != 'white':
                 self.white_corners()
                 break
 
-
-        # Step 2 - White Corners
+        self.turn('counter')
+        self.turn('counter')
 
         # Step 3 - Colour Blocks (URURUFUF)
+
+        for face in self.front, self.left, self.right, self.back:
+            if face.panels[3] != face.panels[8] or face.panels[4] != face.panels[8]:
+                self.colour_block()
+                break
+
 
         # Step 4 - Yellow Cross (FRURUF)
 
