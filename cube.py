@@ -356,6 +356,28 @@ class Cube(object):
             else:
                 print('Turning left\n')
                 self.turn('left')
+    
+
+    def yellow_cross(self):
+        print('\nYELLOW CROSS')
+        turns = 0
+        phase = self.top.yellow_phase()
+        while phase == 1 and turns < 3:
+            self.turn('left')
+            phase = self.top.yellow_phase()
+            turns += 1
+
+        while phase < 4:
+            print(f'Doing FRURUF (Phase: {phase})')
+            self.twist('face')
+            self.twist('right')
+            self.twist('top')
+            self.twist('right', 'r')
+            self.twist('top', 'r')
+            self.twist('face', 'r')
+            phase += 1
+        
+
 
 
 
@@ -380,14 +402,14 @@ class Cube(object):
         self.turn('counter')
 
         # Step 3 - Colour Blocks (URURUFUF)
-
         for face in self.front, self.left, self.right, self.back:
             if face.panels[3] != face.panels[8] or face.panels[4] != face.panels[8]:
                 self.colour_block()
                 break
 
-
         # Step 4 - Yellow Cross (FRURUF)
+        if self.top.yellow_phase() < 4:
+            self.yellow_cross()
 
         # Step 5 - Switch Block Tops (RURURUURU)
 
@@ -445,6 +467,17 @@ class Face(object):
         self.r_line = [self.panels[2], self.panels[4], self.panels[7]]
         self.u_line = [self.panels[0], self.panels[1], self.panels[2]]
         self.b_line = [self.panels[5], self.panels[6], self.panels[7]]
+
+    def yellow_phase(self):
+        if self.panels[3] == 'yellow':
+            if self.panels[1] == 'yellow':
+                return 2
+            elif self.panels[4] == 'yellow':
+                return 3
+            elif self.panels[1] == 'yellow' and self.panels[4] == 'yellow' and self.panels[6] == 'yellow':
+                return 4
+            
+        return 1
 
 
 
