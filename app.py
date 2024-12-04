@@ -6,34 +6,46 @@ app = Flask(__name__)
 faces = []
 
 panels = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
-white_face = Face('white', panels)
-faces.append(white_face)
+bottom_face = Face('white', panels)
+faces.append(bottom_face)
 
 panels = ['blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue']
-blue_face = Face('blue', panels)
-faces.append(blue_face)
+front_face = Face('blue', panels)
+faces.append(front_face)
 
 panels = ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange']
-orange_face = Face('orange', panels)
-faces.append(orange_face)
+left_face = Face('orange', panels)
+faces.append(left_face)
 
 panels = ['red', 'red','red', 'red', 'red', 'red', 'red', 'red', 'red']
-red_face = Face('red', panels)
-faces.append(red_face)
+right_face = Face('red', panels)
+faces.append(right_face)
 
 panels = ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
-green_face = Face('green', panels)
-faces.append(green_face)
+back_face = Face('green', panels)
+faces.append(back_face)
 
 panels = ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow']
-yellow_face = Face('yellow', panels)
-faces.append(yellow_face)
+top_face = Face('yellow', panels)
+faces.append(top_face)
 
 cube = Cube(faces)
 
 @app.route('/')
 def index():
-    # Step 1 - White Cross
+    cube.reset()
+    cube.twist('left')
+    cube.twist('face')
+    cube.twist('top')
+    cube.twist('top')
+    cube.twist('bottom')
+    cube.twist('right')
+    cube.twist('face')
+    cube.twist('left')
+    cube.twist('bottom')
+    cube.twist('right')
+
+    cube.white_cross()
 
     return render_template('index.j2', cube=cube)
 

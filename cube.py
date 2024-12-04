@@ -44,28 +44,10 @@ class Cube(object):
             self.bottom.rotate()
             self.top.rotate('anti')
         elif direction == 'clockwise':
-            # self.top, self.right, self.bottom, self.left = (
-            #     self.left, self.top, self.right, self.bottom
-            # )
-            # self.top.rotate()
-            # self.bottom.rotate()
-            # self.left.rotate()
-            # self.right.rotate()
-            # self.front.rotate()
-            # self.back.rotate('anti')
             self.turn('forward')
             self.turn('right')
             self.turn('backward')
         elif direction == 'counter':
-            # self.top, self.right, self.bottom, self.left = (
-            #     self.right, self.bottom, self.left, self.top
-            # )
-            # self.top.rotate('anti')
-            # self.bottom.rotate('anti')
-            # self.left.rotate('anti')
-            # self.right.rotate('anti')
-            # self.back.rotate()
-            # self.front.rotate('anti')
             self.turn('forward')
             self.turn('left')
             self.turn('backward')
@@ -155,15 +137,84 @@ class Cube(object):
         self.turn('left')
 
     def reset(self):
-        f_colour, l_colour, r_colour, t_colour, bt_colour, bk_colour = (
-            self.front.colour, self.left.colour, self.right.colour, self.top.colour, self.bottom.colour, self.back.colour
-        )
-        self.bottom.panels = [bt_colour for _ in self.bottom.panels]
-        self.front.panels = [f_colour for _ in self.front.panels]
-        self.left.panels = [l_colour for _ in self.left.panels]
-        self.right.panels = [r_colour for _ in self.right.panels]
-        self.top.panels = [t_colour for _ in self.top.panels]
-        self.back.panels = [bk_colour for _ in self.back.panels]
+        self.bottom.panels = ['white' for _ in self.bottom.panels]
+        self.front.panels = ['blue' for _ in self.front.panels]
+        self.left.panels = ['orange' for _ in self.left.panels]
+        self.right.panels = ['red' for _ in self.right.panels]
+        self.top.panels = ['yellow' for _ in self.top.panels]
+        self.back.panels = ['green' for _ in self.back.panels]
+
+        for face in self.faces:
+            face.set_lines()
+
+    def white_cross(self):
+        if self.front.colour == 'white':
+            self.turn('backward')
+        elif self.bottom.colour == 'white':
+            self.turn('counter')
+            self.turn('counter')
+        elif self.right.colour == 'white':
+            self.turn('counter')
+        elif self.left.colour == 'white':
+            self.turn('clockwise')
+        elif self.back.colour == 'white':
+            self.turn('forward')
+
+        while self.top.panels[1] != 'white' or self.top.panels[3] != 'white' or self.top.panels[4] != 'white' \
+        or self.top.panels[6] != 'white':
+            while self.front.panels[1] == 'white' or self.front.panels[3] == 'white' or \
+            self.front.panels[4] == 'white' or self.front.panels[6] == 'white' or self.bottom.panels[1] == 'white':
+                if self.front.panels[3] == 'white':
+                    print('White in panel 6')
+                    while self.top.panels[3] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting left r')
+                    self.twist('left', 'r')
+                if self.front.panels[4] == 'white':
+                    print('White in panel 4')
+                    while self.top.panels[4] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting right')
+                    self.twist('right')
+                if self.front.panels[1] == 'white':
+                    print('White in panel 2')
+                    while self.top.panels[6] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting face')
+                    self.twist('face')
+                    while self.top.panels[4] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting right')
+                    self.twist('right')
+                if self.front.panels[6] == 'white':
+                    print('White in panel 8')
+                    while self.top.panels[6] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting face r')
+                    self.twist('face', 'r')
+                    while self.top.panels[4] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting right')
+                    self.twist('right')
+                if self.bottom.panels[1] == 'white':
+                    print('White on centre bottom')
+                    while self.top.panels[6] == 'white':
+                        print('Twisting top r')
+                        self.twist('top', 'r')
+                    print('Twisting face twice')
+                    self.twist('face')
+                    self.twist('face')
+
+            print('Turning left\n')
+            self.turn('left')
+
+            
 
 
 class Face(object):
@@ -174,7 +225,7 @@ class Face(object):
 
     def __str__(self):
         return (f'{self.panels[0][:1]}  {self.panels[1][:1]}  {self.panels[2][:1]}\n'
-                f'{self.panels[3][:1]}  {self.colour[8][:1]}  {self.panels[4][:1]}\n'
+                f'{self.panels[3][:1]}  {self.panels[8][:1]}  {self.panels[4][:1]}\n'
                 f'{self.panels[5][:1]}  {self.panels[6][:1]}  {self.panels[7][:1]}\n\n')
 
     def rotate(self, direction='clock'):
@@ -215,6 +266,22 @@ class Face(object):
         self.r_line = [self.panels[2], self.panels[4], self.panels[7]]
         self.u_line = [self.panels[0], self.panels[1], self.panels[2]]
         self.b_line = [self.panels[5], self.panels[6], self.panels[7]]
+
+def solve(cube):
+    # Step 1 - White Cross
+    if cube.top.panels[1] != 'white' or cube.top.panels[3] != 'white' or cube.top.panels[4] != 'white' \
+    or cube.top.panels[6] != 'white':
+        cube.white_cross()
+
+    # Step 2 - Colour Blocks (URURUFUF)
+
+    # Step 3 - Yellow Cross (FRURUF)
+
+    # Step 4 - Switch Block Tops (RURURUURU)
+
+    # Step 5 - Switch Top Corners (URULURUL)
+
+    # Step 6 - Finish (Down Left Up Right)
 
 
 
