@@ -27,6 +27,12 @@ async function reset() {
     updatePanels(data.new_faces);
 }
 
+async function solve() {
+    const response = await fetch(`/solve`, { method: 'POST' });
+    const data = await response.json();
+    window.location.href = data.redirect_url;
+}
+
 let current_colour = '';
 
 document.getElementById('rightface').addEventListener('click', () => turn('left'));
@@ -38,6 +44,8 @@ document.getElementById('counter').addEventListener('click', () => turn('counter
 document.getElementById('clockwise').addEventListener('click', () => turn('clockwise'));
 
 document.getElementById('reset').addEventListener('click', () => reset())
+
+document.getElementById('solve').addEventListener('click', () => solve())
 
 const colours = document.querySelectorAll('.colour');
 colours.forEach(colour => {

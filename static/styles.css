@@ -27,8 +27,15 @@ body, html {
 }
 
 #reset {
-    left: 163px;
-    background: rgb(255, 41, 41)
+    top: 600px;
+    left: 445px;
+    background: rgb(255, 41, 41);
+}
+
+#solve {
+    top: 600px;
+    right: 445px;
+    background: rgb(0, 255, 26);
 }
 
 #face {

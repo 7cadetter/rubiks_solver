@@ -36,27 +36,41 @@ cube = Cube(faces)
 def index():
     cube.reset()
     
-    cube.twist('right')
-    cube.turn('clockwise')
     cube.twist('top')
-    cube.twist('bottom', 'r')
     cube.twist('face')
-    cube.turn('forward')
-    cube.turn('left')
     cube.twist('right')
     cube.turn('forward')
-    cube.twist('top', 'r')
-    cube.twist('face', 'r')
-    cube.turn('backward')
-    cube.turn('counter')
     cube.twist('bottom')
+    cube.twist('face', 'r')
+    cube.twist('top')
+    cube.turn('right')
+    cube.twist('left')
+    cube.turn('backward')
+    cube.twist('face')
+    cube.twist('bottom', 'r')
+    cube.twist('right', 'r')
+    cube.twist('top')
+    cube.turn('right')
+    cube.twist('top', 'r')
 
 
-
-    cube.solve()
-    print(cube)
+    print(cube.instructions)
 
     return render_template('index.j2', cube=cube)
+
+@app.route('/solve', methods=['POST'])
+def solve():
+    cube.solve()
+
+    result = {
+        "message": "Cube turned successfully",
+        "redirect_url": "/instructions"
+    }
+    return jsonify(result)
+
+@app.route('/instructions', methods=['GET'])
+def instructions():
+    return render_template('solve.j2', instruction=cube.instructions)
 
 @app.route('/turn', methods=['POST'])
 def turn():
